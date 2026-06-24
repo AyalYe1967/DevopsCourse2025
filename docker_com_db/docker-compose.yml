@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: 123
+    networks:
+      - my_net
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+
+  app:
+    image: drupal:10-apache
+    ports:
+      - 8080:80
+    restart: always
+    networks:
+      - my_net
+
+networks:
+  my_net:
+    driver: bridge
+
+
+
